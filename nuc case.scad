@@ -168,7 +168,7 @@ if(which_part == "case") {
             rounded_cube(size=[27,5,30], center=true, radius=1);
 
             // Side Cable Inset
-            translate([-wall_thickness,30,20])
+            translate([-wall_thickness,30,30])
             rotate([90,0,90])
             roundamid(
                 size=[28+(wall_thickness*2)+3,9+(wall_thickness*2)+3],
@@ -178,7 +178,7 @@ if(which_part == "case") {
             );
 
             // Side Cable Hole
-            translate([0,30,20])
+            translate([0,30,30])
             rotate([90,0,90])
             rounded_cube(size=[28,9,30], center=true, radius=1);
 
