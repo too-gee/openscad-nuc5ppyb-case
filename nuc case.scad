@@ -106,12 +106,8 @@ if(which_part == "case") {
                 center=true
             );
 
-            // Front Upper USB
-            translate([55.5,-14,30.38])
-            usb_port();
-
-            // Front Lower USB
-            translate([55.5,-14,21.88])
+            // Front USB
+            translate([55.5,-14,26.13])
             usb_port();
 
             // Front Audio
@@ -136,12 +132,8 @@ if(which_part == "case") {
                 center=true
             );
 
-            // Rear Upper USB
-            translate([88,122,30.38])
-            usb_port();
-
-            // Rear Lower USB
-            translate([88,122,21.88])
+            // Rear USB
+            translate([88,122,26.13])
             usb_port();
 
             // Rear Audio

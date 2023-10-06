@@ -49,7 +49,7 @@ module usb_port() {
     rounded_cube(
         size=[
             15,
-            7.5,
+            16,
             30
         ],
         radius=0.5,
