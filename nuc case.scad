@@ -153,11 +153,11 @@ if(which_part == "case") {
             round_port(diameter=9);
 
             // Rear Ethernet
-            translate([69,122,25.9])
+            translate([69,122,25.5])
             ethernet_port();
 
             // Rear HDMI
-            translate([49,122,22.11])
+            translate([49,122,21.5])
             hdmi_port();
 
             // Side IO Inset
