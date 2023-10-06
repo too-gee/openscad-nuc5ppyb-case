@@ -17,6 +17,9 @@ wall_thickness = 3; // [2:20]
 // Should the case have surface mount tabs?
 surface_mount = true;
 
+// Should the case have a side hole for cable passthrough?
+cable_hole = true;
+
 // How tall the interior cavity of the case is (including standoffs)
 interior_height = 45; // [38:80]
 
@@ -40,8 +43,8 @@ if(which_part == "case") {
     standoff_height=15.2;
 
     fan_guide_width = 1.5;
-    fan_guide_left = 22;
-    fan_guide_right = 84;
+    fan_guide_left = 23;
+    fan_guide_right = 83;
 
     fan_guide_gap = fan_guide_right - fan_guide_left - fan_guide_width;
     exhaust_hole_count = floor((fan_guide_gap + fan_exhaust_spacing) / (fan_exhaust_width + fan_exhaust_spacing));
@@ -167,20 +170,23 @@ if(which_part == "case") {
             rotate([90,0,90])
             rounded_cube(size=[27,5,30], center=true, radius=1);
 
-            // Side Cable Inset
-            translate([-wall_thickness,30,30])
-            rotate([90,0,90])
-            roundamid(
-                size=[28+(wall_thickness*2)+3,9+(wall_thickness*2)+3],
-                height=wall_thickness - inset_wall_thickness,
-                radius=wall_thickness + inset_wall_thickness - 1,
-                center=true
-            );
 
-            // Side Cable Hole
-            translate([0,30,30])
-            rotate([90,0,90])
-            rounded_cube(size=[28,9,30], center=true, radius=1);
+            if(cable_hole == true) {
+                // Side Cable Inset
+                translate([-wall_thickness,30,30])
+                rotate([90,0,90])
+                roundamid(
+                    size=[28+(wall_thickness*2)+3,9+(wall_thickness*2)+3],
+                    height=wall_thickness - inset_wall_thickness,
+                    radius=wall_thickness + inset_wall_thickness - 1,
+                    center=true
+                );
+
+                // Side Cable Hole
+                translate([0,30,30])
+                rotate([90,0,90])
+                rounded_cube(size=[28,9,30], center=true, radius=1);
+            }
 
             // Fan Exhausts
             for(x = [
@@ -208,13 +214,13 @@ if(which_part == "case") {
         translate([
             (fan_guide_right+fan_guide_left)/2,
             88.75,
-            1.5
+            1.25
         ])
         cube(
             [
                 fan_guide_right-fan_guide_left+fan_guide_width,
                 fan_guide_width,
-                3
+                2.5
             ],
             center=true
         );
@@ -352,3 +358,6 @@ if(which_part == "lid") {
 
     }
 }
+
+//# translate([100/2,interior_width/2,15/2])
+//cube([100,70,15], center=true);
