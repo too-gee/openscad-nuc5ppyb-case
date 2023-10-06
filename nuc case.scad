@@ -153,7 +153,7 @@ if(which_part == "case") {
             hdmi_port();
 
             // Side IO Inset
-            translate([interior_width+wall_thickness,26.8,18.37])
+            translate([interior_width+wall_thickness,26.8,19])
             rotate([90,0,270])
             roundamid(
                 size=[33+(wall_thickness*2),11+(wall_thickness*2)],
@@ -163,7 +163,7 @@ if(which_part == "case") {
             );
 
             // Side SD
-            translate([110,26.8,18.37])
+            translate([110,26.8,19])
             rotate([90,0,90])
             rounded_cube(size=[27,5,30], center=true, radius=1);
 
