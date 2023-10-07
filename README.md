@@ -17,7 +17,7 @@ Many parameters are configurable via the customizer without editing any code.
 
 ## Design Considerations
 
-This case is designed to "dam" the exhaust side of the fan from the intake side. The intent is to prevent fresh air from mixing with exhaust air to maximize the efficiency of the cooling solution. The orientation of the board affords easy access to the RAM slot and the SATA connector with the lid open. The lid is heavily perforated to allow for passive cooling of the cooler components.
+This case features a partition between the exhaust side of the fan and the intake side. The intent is to prevent fresh air from mixing with exhaust air to maximize the efficiency of the cooling solution. The orientation of the board affords easy access to the RAM slot and the SATA connector with the lid open. The lid is heavily perforated to allow for passive cooling of the cooler components.
 
 Due to the orientation of the motherboard, this case does not have an integrated power button. Instead, a hole on the right side of the front panel is available for a dedicated power button. This can either be a simple momentary NO switch or a fancier switch with integrated LEDs to indicate power and drive activity.
 
