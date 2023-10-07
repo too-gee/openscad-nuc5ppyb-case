@@ -12,6 +12,13 @@ which_part = "case"; // ["lid", "case"]
 // How thick the walls of the case are (except around ports)
 wall_thickness = 3; // [2:20]
 
+
+/* [Lid] */
+
+// Should the lid have mounts for a 2.5" hdd?
+hdd_mount = true;
+
+
 /* [Case] */
 
 // Should the case have surface mount tabs?
@@ -31,6 +38,7 @@ fan_exhaust_spacing = 2; // [2:15]
 
 // The diameter of the power button hole
 power_button_diameter = 13.5; // [0:16]
+
 
 /* [Hidden] */
 interior_width = 108;
@@ -295,69 +303,86 @@ if(which_part == "case") {
 }
 
 if(which_part == "lid") {
+    vent_hole_thickness = 3;
+    vent_hole_rotation = 60;
+    vent_hole_spacing = 2;
+
+    max_vent_hole_area = 90;
+
+    vent_hole_rotated_thickness = ((vent_hole_thickness * cos(90 - vent_hole_rotation)) * tan(vent_hole_rotation)) + (vent_hole_thickness * sin(90 - vent_hole_rotation));
+    vent_holes_per_row = floor((90 + vent_hole_spacing) / (vent_hole_rotated_thickness + vent_hole_spacing));
+    actual_vent_hole_spacing = (max_vent_hole_area - (vent_holes_per_row * vent_hole_rotated_thickness)) / (vent_holes_per_row - 1);
+
+    coords = [9 + (vent_hole_rotated_thickness/2):vent_hole_rotated_thickness+actual_vent_hole_spacing:99];
+    coords_list = [for(i=coords) i];
+
     render(convexity = 2)
-    difference() {
-    // Lid Body
-        union() {
-            // Wide Part
-            translate([
-                -wall_thickness,
-                -wall_thickness,
-                0
-            ])
-            rounded_cube(
-                size=[
-                    interior_width + (wall_thickness * 2),
-                    interior_width + (wall_thickness * 2),
-                    wall_thickness
-                ],
-                radius=interior_radius + wall_thickness
-            );
+    union() {
+        difference() {
+        // Lid Body
+            union() {
+                // Wide Part
+                translate([
+                    -wall_thickness,
+                    -wall_thickness,
+                    0
+                ])
+                rounded_cube(
+                    size=[
+                        interior_width + (wall_thickness * 2),
+                        interior_width + (wall_thickness * 2),
+                        wall_thickness
+                    ],
+                    radius=interior_radius + wall_thickness
+                );
 
-            // Inside Part
-            rounded_cube(
-                size=[
-                    interior_width,
-                    interior_width,
-                    wall_thickness + 3
-                ],
-                radius=interior_radius
-            );
+                // Inside Part
+                rounded_cube(
+                    size=[
+                        interior_width,
+                        interior_width,
+                        wall_thickness + 3
+                    ],
+                    radius=interior_radius
+                );
 
-            // Inside Part Bezel
-            translate([0,0,wall_thickness + 3])
-            roundamid(
-                size=[interior_width, interior_width],
-                height=2,
-                radius=interior_radius
-            );
-        }
-
-        vent_hole_thickness = 3;
-        vent_hole_rotation = 60;
-        vent_hole_spacing = 2;
-
-        max_vent_hole_area = 90;
-
-        vent_hole_rotated_thickness = ((vent_hole_thickness * cos(90 - vent_hole_rotation)) * tan(vent_hole_rotation)) + (vent_hole_thickness * sin(90 - vent_hole_rotation));
-        vent_holes_per_row = floor((90 + vent_hole_spacing) / (vent_hole_rotated_thickness + vent_hole_spacing));
-        actual_vent_hole_spacing = (max_vent_hole_area - (vent_holes_per_row * vent_hole_rotated_thickness)) / (vent_holes_per_row - 1);
-
-        coords = [9 + (vent_hole_rotated_thickness/2):vent_hole_rotated_thickness+actual_vent_hole_spacing:99];
-
-        for(x=coords) {
-            direction = ((x - 9 - (vent_hole_rotated_thickness/2))/(vent_hole_rotated_thickness+actual_vent_hole_spacing)) % 2 == 0 ? 0 : 1;
-
-            for(y=coords) {
-                translate([x,y,0])
-                mirror([0,direction,0])
-                rotate([vent_hole_rotation,0,0])
-                rounded_cube(size=[vent_hole_rotated_thickness,vent_hole_thickness,40], radius=1.5, center=true);
+                // Inside Part Bezel
+                translate([0,0,wall_thickness + 3])
+                roundamid(
+                    size=[interior_width, interior_width],
+                    height=2,
+                    radius=interior_radius
+                );
             }
-        }
 
+            for(x=coords) {
+                direction = ((x - 9 - (vent_hole_rotated_thickness/2))/(vent_hole_rotated_thickness+actual_vent_hole_spacing)) % 2 == 0 ? 0 : 1;
+
+                for(y=coords) {
+                    translate([x,y,0])
+                    mirror([0,direction,0])
+                    rotate([vent_hole_rotation,0,0])
+                    rounded_cube(size=[vent_hole_rotated_thickness,vent_hole_thickness,40], radius=1.5, center=true);
+                }
+            }
+
+        }
+        
+        // HDD Mount
+        if(hdd_mount == true) {
+            translate([-5+coords_list[2],interior_width-1.75,wall_thickness + 22])
+            hdd_hook();
+
+            translate([-5+coords_list[8],interior_width-1.75,wall_thickness + 22])
+            hdd_hook();
+
+            translate([-5+coords_list[1],interior_width-70.25-36,wall_thickness + 22])
+            mirror([0,1,0])
+            hdd_hook();
+
+            translate([-5+coords_list[9],interior_width-70.25-36,wall_thickness + 22])
+            mirror([0,1,0])
+            hdd_hook();
+        }
     }
 }
-
-//# translate([100/2,interior_width/2,15/2])
-//cube([100,70,15], center=true);
