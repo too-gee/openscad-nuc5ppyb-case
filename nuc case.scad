@@ -118,7 +118,7 @@ if(which_part == "case") {
             );
 
             // Front USB
-            translate([55.5,-14,26.13])
+            translate([55.5,-14,25.13])
             usb_port();
 
             // Front Audio
@@ -144,7 +144,7 @@ if(which_part == "case") {
             );
 
             // Rear USB
-            translate([88,122,26.13])
+            translate([88,122,25.13])
             usb_port();
 
             // Rear Audio
@@ -160,7 +160,7 @@ if(which_part == "case") {
             ethernet_port();
 
             // Rear HDMI
-            translate([49,122,21.5])
+            translate([49,122,20.5])
             hdmi_port();
 
             // Side IO Inset
