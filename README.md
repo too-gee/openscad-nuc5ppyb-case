@@ -21,6 +21,6 @@ This case features a partition between the exhaust side of the fan and the intak
 
 Due to the orientation of the motherboard, this case does not have an integrated power button. Instead, a hole on the right side of the front panel is available for a dedicated power button. This can either be a simple momentary NO switch or a fancier switch with integrated LEDs to indicate power and drive activity.
 
-If an internal HDD is desired, the lid can be printed with mounts. These mounts hold a 70mm wide 2.5" hard disk in place (5mm or thicker) with rubber bands. If an HDD is installed, the internal case height should be increased to 45mm or more to allow for sufficient clearance. If your hard disk is longer than 100mm or if your particular SATA cables do not fit in the case, SATA cables can be routed out of the case via cable holes and the hard disk can be mounted externally.
+If an internal HDD is desired, the lid can be printed with mounts. These mounts hold a 70mm wide 2.5" hard disk in place (5mm or thicker) with rubber bands. To install an HDD internally, the internal case height should be increased to 45mm or more to allow for sufficient clearance. If your hard disk is longer than 100mm or if your particular SATA cables do not fit in the case, SATA cables can be routed out of the case via cable holes and the hard disk can be mounted externally.
 
 There are no dividers between the top and bottom USB ports. These dividers are fragile when printed and serve little practical or aesthetic purpose.
