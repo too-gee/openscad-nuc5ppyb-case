@@ -66,16 +66,16 @@ if(which_part == "case") {
             tab_hole_diameter = 5;
 
             translate([
-                interior_width/2,
-                interior_width/2,
-                (tab_thickness/2)-wall_thickness
+                interior_width / 2,
+                interior_width / 2,
+                (tab_thickness / 2)- wall_thickness
             ])
-            copy_mirror([1,0,0])
-            translate([-(interior_width/2)-(tab_width/2)-wall_thickness,0,0])
+            copy_mirror([1, 0, 0])
+            translate([-(interior_width / 2) - (tab_width / 2) - wall_thickness, 0, 0])
             mounting_tab(
-                tab_width=tab_width,
-                tab_thickness=tab_thickness,
-                tab_hole_diameter=tab_hole_diameter
+                tab_width = tab_width,
+                tab_thickness = tab_thickness,
+                tab_hole_diameter = tab_hole_diameter
             );
         }
         
@@ -88,112 +88,112 @@ if(which_part == "case") {
                     -wall_thickness
                 ])
                 rounded_cube(
-                    size=[
+                    size = [
                         interior_width + (wall_thickness * 2),
                         interior_width + (wall_thickness * 2),
                         interior_height + wall_thickness
                     ],
-                    radius=interior_radius + wall_thickness
+                    radius = interior_radius + wall_thickness
                 );
             }
 
             // Interior Cavity
             rounded_cube(
-                size=[
+                size = [
                     interior_width,
                     interior_width,
-                    interior_height+10
+                    interior_height + 10
                 ],
                 radius=interior_radius
             );
 
             // Front IO Inset
-            translate([41.25,-wall_thickness,25.37])
-            rotate([90,0,180])
+            translate([41.25, -wall_thickness, 25.37])
+            rotate([90, 0, 180])
             roundamid(
-                size=[50+(wall_thickness*2),22+(wall_thickness*2)],
-                height=wall_thickness - inset_wall_thickness,
-                radius=wall_thickness + inset_wall_thickness - 1,
-                center=true
+                size = [50 + (wall_thickness * 2), 22 + (wall_thickness * 2)],
+                height = wall_thickness - inset_wall_thickness,
+                radius = wall_thickness + inset_wall_thickness - 1,
+                center = true
             );
 
             // Front USB
-            translate([55.5,-14,25.13])
+            translate([55.5, -14, 25.13])
             usb_port();
 
             // Front Audio
-            translate([39,0,20.29])
-            round_port(diameter=6);
+            translate([39,0, 20.29])
+            round_port(diameter = 6);
 
             // Front IR
-            translate([23,0,20.4])
-            round_port(diameter=8);
+            translate([23, 0, 20.4])
+            round_port(diameter = 8);
 
             // Front Power Button
-            translate([90.5,0,25])
-            round_port(diameter=power_button_diameter);
+            translate([90.5, 0, 25])
+            round_port(diameter = power_button_diameter);
 
             // Rear IO Inset
-            translate([54,interior_width+wall_thickness,25.37])
-            rotate([90,0,0])
+            translate([54, interior_width + wall_thickness, 25.37])
+            rotate([90, 0, 0])
             roundamid(
-                size=[89+(wall_thickness*2),22+(wall_thickness*2)],
-                height=wall_thickness - inset_wall_thickness,
-                radius=wall_thickness + inset_wall_thickness - 1,
-                center=true
+                size = [89 + (wall_thickness * 2), 22 + (wall_thickness * 2)],
+                height = wall_thickness - inset_wall_thickness,
+                radius = wall_thickness + inset_wall_thickness - 1,
+                center = true
             );
 
             // Rear USB
-            translate([88,122,25.13])
+            translate([88, 122, 25.13])
             usb_port();
 
             // Rear Audio
-            translate([29.4,122,19])
-            round_port(diameter=7);
+            translate([29.4, 122, 19])
+            round_port(diameter = 7);
 
             // Rear Power
-            translate([15,122,21.9])
-            round_port(diameter=9);
+            translate([15, 122, 21.9])
+            round_port(diameter = 9);
 
             // Rear Ethernet
-            translate([69,122,25.5])
+            translate([69, 122, 25.5])
             ethernet_port();
 
             // Rear HDMI
-            translate([49,122,20.5])
+            translate([49, 122, 20.5])
             hdmi_port();
 
             // Side IO Inset
-            translate([interior_width+wall_thickness,26.8,19])
-            rotate([90,0,270])
+            translate([interior_width + wall_thickness, 26.8, 19])
+            rotate([90, 0, 270])
             roundamid(
-                size=[33+(wall_thickness*2),11+(wall_thickness*2)],
-                height=wall_thickness - inset_wall_thickness,
-                radius=wall_thickness + inset_wall_thickness - 1,
-                center=true
+                size = [33 + (wall_thickness * 2), 11 + (wall_thickness * 2)],
+                height = wall_thickness - inset_wall_thickness,
+                radius = wall_thickness + inset_wall_thickness - 1,
+                center = true
             );
 
             // Side SD
-            translate([110,26.8,19])
-            rotate([90,0,90])
-            rounded_cube(size=[27,5,30], center=true, radius=1);
+            translate([110, 26.8, 19])
+            rotate([90, 0, 90])
+            rounded_cube(size=[27, 5, 30], center = true, radius = 1);
 
 
             if(cable_hole == true) {
                 // Side Cable Inset
-                translate([-wall_thickness,30,30])
-                rotate([90,0,90])
+                translate([-wall_thickness, 30, 30])
+                rotate([90, 0, 90])
                 roundamid(
-                    size=[28+(wall_thickness*2)+3,9+(wall_thickness*2)+3],
-                    height=wall_thickness - inset_wall_thickness,
-                    radius=wall_thickness + inset_wall_thickness - 1,
-                    center=true
+                    size = [28 + (wall_thickness * 2) + 3, 9 + (wall_thickness * 2) + 3],
+                    height = wall_thickness - inset_wall_thickness,
+                    radius = wall_thickness + inset_wall_thickness - 1,
+                    center = true
                 );
 
                 // Side Cable Hole
-                translate([0,30,30])
-                rotate([90,0,90])
-                rounded_cube(size=[28,9,30], center=true, radius=1);
+                translate([0, 30, 30])
+                rotate([90, 0, 90])
+                rounded_cube(size=[28, 9, 30], center = true, radius = 1);
             }
 
             // Fan Exhausts
@@ -204,29 +204,29 @@ if(which_part == "case") {
                 :
                 fan_guide_right
             ]) {
-                translate([x,122,6.501])
-                rotate([90,0,0])
-                rounded_cube(size=[fan_exhaust_width,13,30], radius=3, center=true);
+                translate([x, 122, 6.501])
+                rotate([90, 0, 0])
+                rounded_cube(size = [fan_exhaust_width, 13, 30], radius = 3, center = true);
             }
         }
 
         // Fan Guides
-        translate([fan_guide_left,98,5])
-        cube([fan_guide_width,20,10], center=true);
+        translate([fan_guide_left, 98, 5])
+        cube([fan_guide_width, 20, 10], center = true);
 
         // Fan Guides
-        translate([fan_guide_right,98,5])
-        cube([fan_guide_width,20,10], center=true);
+        translate([fan_guide_right, 98, 5])
+        cube(size = [fan_guide_width, 20, 10], center = true);
 
         // Fan Guides
         translate([
-            (fan_guide_right+fan_guide_left)/2,
+            (fan_guide_right + fan_guide_left) / 2,
             88.75,
             1.25
         ])
         cube(
-            [
-                fan_guide_right-fan_guide_left+fan_guide_width,
+            size = [
+                fan_guide_right - fan_guide_left + fan_guide_width,
                 fan_guide_width,
                 2.5
             ],
@@ -239,29 +239,29 @@ if(which_part == "case") {
                 size=[
                     interior_width,
                     interior_width,
-                    interior_height+10
+                    interior_height + 10
                 ],
                 radius=interior_radius
             );
             
             for(x = [5.5, 100.5]) {
                 for(y = [8.6, 99.2]) {
-                    translate([x, y, standoff_height/2])
+                    translate([x, y, standoff_height / 2])
                     difference() {
                         direction_x = x < 50 ? -1 : 1;
                         direction_y = y < 50 ? -1 : 1;
                         union() {
                             // Standoff chamfer
                             cylinder(
-                                h=standoff_height,
-                                r=standoff_radius,
+                                h = standoff_height,
+                                r = standoff_radius,
                                 center=true
                             );
                             
                             // Standoff filler
                             translate([
                                 direction_x * 4 * standoff_radius,
-                                direction_y * 5* standoff_radius,
+                                direction_y * 5 * standoff_radius,
                                 0
                             ])
                             cube(
@@ -276,7 +276,7 @@ if(which_part == "case") {
                             // Standoff filler
                             translate([
                                 direction_x * 5 * standoff_radius,
-                                direction_y * 4* standoff_radius,
+                                direction_y * 4 * standoff_radius,
                                 0
                             ])
                             cube(
@@ -291,7 +291,7 @@ if(which_part == "case") {
 
                         // Standoff screw hole
                         cylinder(
-                            h=standoff_height+1,
+                            h=standoff_height + 1,
                             r=standoff_hole_size,
                             center=true
                         );
@@ -338,30 +338,30 @@ if(which_part == "lid") {
                     0
                 ])
                 rounded_cube(
-                    size=[
+                    size = [
                         interior_width + (wall_thickness * 2),
                         interior_width + (wall_thickness * 2),
                         wall_thickness
                     ],
-                    radius=interior_radius + wall_thickness
+                    radius = interior_radius + wall_thickness
                 );
 
                 // Inside Part
                 rounded_cube(
-                    size=[
+                    size = [
                         interior_width,
                         interior_width,
                         wall_thickness + lid_thickness
                     ],
-                    radius=interior_radius
+                    radius = interior_radius
                 );
 
                 // Inside Part Bevel
                 translate([0, 0, wall_thickness + lid_thickness])
                 roundamid(
-                    size=[interior_width, interior_width],
-                    height=lid_bevel_thickness,
-                    radius=interior_radius
+                    size = [interior_width, interior_width],
+                    height = lid_bevel_thickness,
+                    radius = interior_radius
                 );
 
                 // HDD Mounts
@@ -375,14 +375,14 @@ if(which_part == "lid") {
                         coords_list[2],
                         wall_thickness + tab_height + lid_bevel_thickness + lid_thickness
                     ])
-                    hdd_hook(thickness=tab_thickness);
+                    hdd_hook(thickness = tab_thickness);
 
                     translate([
                         interior_width - lid_bevel_thickness,
                         coords_list[len(coords_list) - 2],
                         wall_thickness + 22
                     ])
-                    hdd_hook(thickness=tab_thickness);
+                    hdd_hook(thickness = tab_thickness);
 
                     translate([
                         interior_width - hdd_width - 36,
@@ -390,7 +390,7 @@ if(which_part == "lid") {
                         wall_thickness + 22
                     ])
                     rotate([0, 0, 180])
-                    hdd_hook(thickness=tab_thickness);
+                    hdd_hook(thickness = tab_thickness);
 
                     translate([
                         interior_width - hdd_width - 36,
@@ -398,16 +398,25 @@ if(which_part == "lid") {
                         wall_thickness + 22
                     ])
                     rotate([0, 0, 180])
-                    hdd_hook(thickness=tab_thickness);
+                    hdd_hook(thickness = tab_thickness);
                 }
             }
 
-            for(x=coords) {
-                for(y=coords) {
+            // Vent Holes
+            for(x = coords) {
+                for(y = coords) {
                 direction = round((y - coords[0])/coords[1]) % 2;
                     translate([x,y,0])
                     mirror([direction,0,0])
-                    vent_hole([vent_hole_thickness,vent_hole_thickness,40+wall_thickness], radius=.5, angle=vent_hole_rotation);
+                    vent_hole(
+                        size = [
+                            vent_hole_thickness,
+                            vent_hole_thickness,
+                            40 + wall_thickness
+                        ],
+                        radius = 0.5,
+                        angle = vent_hole_rotation
+                    );
                 }
             }
 
