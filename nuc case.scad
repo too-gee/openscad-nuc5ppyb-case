@@ -308,11 +308,10 @@ if(which_part == "lid") {
     min_vent_hole_spacing = 3;
     
     lid_thickness = 3;
+    lid_bevel_thickness = 2;
 
     vent_area_offset = wall_thickness + lid_thickness;
     vent_area_width = interior_width - (vent_area_offset * 2);
-    
-    echo(vent_area_width);
 
     vent_holes_per_row = floor((vent_area_width + min_vent_hole_spacing) / (vent_hole_thickness + min_vent_hole_spacing));
     vent_hole_spacing = (vent_area_width - (vent_holes_per_row * vent_hole_thickness)) / (vent_holes_per_row - 1);
@@ -357,13 +356,50 @@ if(which_part == "lid") {
                     radius=interior_radius
                 );
 
-                // Inside Part Bezel
-                translate([0,0,wall_thickness + lid_thickness])
+                // Inside Part Bevel
+                translate([0, 0, wall_thickness + lid_thickness])
                 roundamid(
                     size=[interior_width, interior_width],
-                    height=2,
+                    height=lid_bevel_thickness,
                     radius=interior_radius
                 );
+
+                // HDD Mounts
+                if(hdd_mount == true) {
+                    tab_thickness = vent_hole_thickness + (2 * vent_hole_spacing);
+                    tab_height = 17;
+                    hdd_width = 70;
+
+                    #translate([
+                        interior_width - lid_bevel_thickness,
+                        coords_list[2],
+                        wall_thickness + tab_height + lid_bevel_thickness + lid_thickness
+                    ])
+                    hdd_hook(thickness=tab_thickness);
+
+                    translate([
+                        interior_width - lid_bevel_thickness,
+                        coords_list[len(coords_list) - 2],
+                        wall_thickness + 22
+                    ])
+                    hdd_hook(thickness=tab_thickness);
+
+                    translate([
+                        interior_width - hdd_width - 36,
+                        coords_list[1],
+                        wall_thickness + 22
+                    ])
+                    rotate([0, 0, 180])
+                    hdd_hook(thickness=tab_thickness);
+
+                    translate([
+                        interior_width - hdd_width - 36,
+                        coords_list[len(coords_list) - 1],
+                        wall_thickness + 22
+                    ])
+                    rotate([0, 0, 180])
+                    hdd_hook(thickness=tab_thickness);
+                }
             }
 
             for(x=coords) {
@@ -377,23 +413,6 @@ if(which_part == "lid") {
 
         }
         
-        // HDD Mount
-        if(hdd_mount == true) {
-            tab_thickness = vent_hole_thickness + (2 * vent_hole_spacing);
 
-            translate([interior_width-1.75,coords_list[2],wall_thickness + 22])
-            hdd_hook(thickness=tab_thickness);
-
-            translate([interior_width-1.75,coords_list[len(coords_list)-2],wall_thickness + 22])
-            hdd_hook(thickness=tab_thickness);
-
-            #translate([interior_width-70.25-36,coords_list[1],wall_thickness + 22])
-            rotate([0,0,180])
-            hdd_hook(thickness=tab_thickness);
-
-            translate([interior_width-70.25-36,coords_list[len(coords_list)-1],wall_thickness + 22])
-            rotate([0,0,180])
-            hdd_hook(thickness=tab_thickness);
-        }
     }
 }
