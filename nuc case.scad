@@ -379,19 +379,21 @@ if(which_part == "lid") {
         
         // HDD Mount
         if(hdd_mount == true) {
-            translate([-5+coords_list[2],interior_width-1.75,wall_thickness + 22])
-            hdd_hook();
+            tab_thickness = vent_hole_thickness + (2 * vent_hole_spacing);
 
-            translate([-5+coords_list[8],interior_width-1.75,wall_thickness + 22])
-            hdd_hook();
+            translate([interior_width-1.75,coords_list[2],wall_thickness + 22])
+            hdd_hook(thickness=tab_thickness);
 
-            translate([-5+coords_list[1],interior_width-70.25-36,wall_thickness + 22])
-            mirror([0,1,0])
-            hdd_hook();
+            translate([interior_width-1.75,coords_list[len(coords_list)-2],wall_thickness + 22])
+            hdd_hook(thickness=tab_thickness);
 
-            translate([-5+coords_list[9],interior_width-70.25-36,wall_thickness + 22])
-            mirror([0,1,0])
-            hdd_hook();
+            #translate([interior_width-70.25-36,coords_list[1],wall_thickness + 22])
+            rotate([0,0,180])
+            hdd_hook(thickness=tab_thickness);
+
+            translate([interior_width-70.25-36,coords_list[len(coords_list)-1],wall_thickness + 22])
+            rotate([0,0,180])
+            hdd_hook(thickness=tab_thickness);
         }
     }
 }

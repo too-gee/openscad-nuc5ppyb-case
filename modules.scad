@@ -118,9 +118,10 @@ module hdmi_port() {
 }
 
 
-module hdd_hook() {
-    rotate([90,180,90])
-    linear_extrude(10)
+module hdd_hook(thickness) {
+    translate([0, thickness/2, 0])
+    rotate([90,180,0])
+    linear_extrude(thickness)
     polygon(points=[
         [0.250,17.000],
         [1.488,13.078],
