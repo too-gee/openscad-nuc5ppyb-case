@@ -404,12 +404,16 @@ if(which_part == "lid") {
                         }
                         
                         // Chop the edges off of the tabs where needed
-                        translate([interior_width / 2, interior_width / 2, 15])
+                        translate([
+                            interior_width / 2,
+                            interior_width / 2,
+                            (30 + wall_thickness) / 2
+                        ])
                         rounded_cube(
                             size = [
                                 interior_width - (lid_bevel_thickness * 2),
                                 interior_width - (lid_bevel_thickness * 2),
-                                30
+                                30 + wall_thickness
                             ],
                             radius = interior_radius - lid_bevel_thickness,
                             center = true
