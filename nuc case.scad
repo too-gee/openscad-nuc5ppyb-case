@@ -241,7 +241,7 @@ if(which_part == "case") {
                     interior_width,
                     interior_height + 10
                 ],
-                radius=interior_radius
+                radius = interior_radius
             );
             
             for(x = [5.5, 100.5]) {
@@ -370,35 +370,51 @@ if(which_part == "lid") {
                     tab_height = 17;
                     hdd_width = 70;
 
-                    #translate([
-                        interior_width - lid_bevel_thickness,
-                        coords_list[2],
-                        wall_thickness + tab_height + lid_bevel_thickness + lid_thickness
-                    ])
-                    hdd_hook(thickness = tab_thickness);
+                    intersection() {
+                        union () {
+                            translate([
+                                interior_width - lid_bevel_thickness,
+                                coords_list[2],
+                                wall_thickness + tab_height + lid_bevel_thickness + lid_thickness
+                            ])
+                            hdd_hook(thickness = tab_thickness);
 
-                    translate([
-                        interior_width - lid_bevel_thickness,
-                        coords_list[len(coords_list) - 2],
-                        wall_thickness + 22
-                    ])
-                    hdd_hook(thickness = tab_thickness);
+                            translate([
+                                interior_width - lid_bevel_thickness,
+                                coords_list[len(coords_list) - 2],
+                                wall_thickness + 22
+                            ])
+                            hdd_hook(thickness = tab_thickness);
 
-                    translate([
-                        interior_width - hdd_width - 36,
-                        coords_list[1],
-                        wall_thickness + 22
-                    ])
-                    rotate([0, 0, 180])
-                    hdd_hook(thickness = tab_thickness);
+                            translate([
+                                interior_width - hdd_width - 36,
+                                coords_list[1],
+                                wall_thickness + 22
+                            ])
+                            rotate([0, 0, 180])
+                            hdd_hook(thickness = tab_thickness);
 
-                    translate([
-                        interior_width - hdd_width - 36,
-                        coords_list[len(coords_list) - 1],
-                        wall_thickness + 22
-                    ])
-                    rotate([0, 0, 180])
-                    hdd_hook(thickness = tab_thickness);
+                            translate([
+                                interior_width - hdd_width - 36,
+                                coords_list[len(coords_list) - 1],
+                                wall_thickness + 22
+                            ])
+                            rotate([0, 0, 180])
+                            hdd_hook(thickness = tab_thickness);
+                        }
+                        
+                        // Chop the edges off of the tabs where needed
+                        translate([interior_width / 2, interior_width / 2, 15])
+                        rounded_cube(
+                            size = [
+                                interior_width - (lid_bevel_thickness * 2),
+                                interior_width - (lid_bevel_thickness * 2),
+                                30
+                            ],
+                            radius = interior_radius - lid_bevel_thickness,
+                            center = true
+                        );
+                    }
                 }
             }
 
