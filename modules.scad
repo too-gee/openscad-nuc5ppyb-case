@@ -5,9 +5,9 @@ module rounded_cube(
 ) {
     move = (center == true) ?
         [
-            -size[0]/2,
-            -size[1]/2,
-            -size[2]/2
+            -size.x/2,
+            -size.y/2,
+            -size.z/2
         ]:[0,0,0];
 
 
@@ -16,26 +16,26 @@ module rounded_cube(
         translate([radius, 0, 0])
         cube(
             size=[
-                size[0]-(radius*2),
-                size[1],
-                size[2]
+                size.x-(radius*2),
+                size.y,
+                size.z
             ]
         );
 
         translate([0, radius, 0])
         cube(
             size=[
-                size[0],
-                size[1]-(radius*2),
-                size[2]
+                size.x,
+                size.y-(radius*2),
+                size.z
             ]
         );
 
-        for(x=[radius, size[0]-radius]) {
-            for(y=[radius, size[1]-radius]) {
+        for(x=[radius, size.x-radius]) {
+            for(y=[radius, size.y-radius]) {
                 translate([x,y,0])
                 cylinder(
-                    h=size[2],
+                    h=size.z,
                     r=radius
                 );
             }
@@ -180,23 +180,23 @@ module roundamid(size, height, radius, center) {
 
     move = (center == true) ?
         [
-            -size[0]/2,
-            -size[1]/2,
+            -size.x/2,
+            -size.y/2,
             0
         ]:[0,0,0];
 
     translate(v=move)
     union() {
         // Filler
-        translate([size[0]-radius,0,0])
+        translate([size.x-radius,0,0])
         rotate([90,0,270])
         mirror([1,0,0])
-        linear_extrude(size[0]-(radius*2))
+        linear_extrude(size.x-(radius*2))
         polygon([
             [0,0],
             [height,height],
-            [size[1]-height,height],
-            [size[1],0]
+            [size.y-height,height],
+            [size.y,0]
         ]);
 
 
@@ -204,17 +204,17 @@ module roundamid(size, height, radius, center) {
         translate([0,radius,0])
         rotate([90,0,180])
         mirror([1,0,0])
-        linear_extrude(size[1]-(radius*2))
+        linear_extrude(size.y-(radius*2))
         polygon([
             [0,0],
             [height,height],
-            [size[0]-height,height],
-            [size[0],0]
+            [size.x-height,height],
+            [size.x,0]
         ]);
 
         // Corners
-        for(x=[radius, size[0]-radius]) {
-            for(y=[radius, size[1]-radius]) {
+        for(x=[radius, size.x-radius]) {
+            for(y=[radius, size.y-radius]) {
                 translate([x,y,0])
                 cylinder(
                     h=height,
@@ -230,9 +230,9 @@ module roundamid(size, height, radius, center) {
 module inset(size, radius, center) {
     move = (center == true) ?
         [
-            -size[0]/2,
+            -size.x/2,
             0,
-            -size[1]/2
+            -size.y/2
         ]:[0,0,0];
 
     translate(v=move)
@@ -242,22 +242,22 @@ module inset(size, radius, center) {
         translate([radius, -40, 0])
         cube(
             size=[
-                size[0]-(radius*2),
+                size.x-(radius*2),
                 40,
-                size[1]
+                size.y
             ]
         );
 
         // Top face
-        translate([0,0,size[1]])
+        translate([0,0,size.y])
         mirror([0,0,1])
         rotate([45,0,0])
         translate([radius, -40, 0])
         cube(
             size=[
-                size[0]-(radius*2),
+                size.x-(radius*2),
                 40,
-                size[1]
+                size.y
             ]
         );
 
@@ -266,50 +266,50 @@ module inset(size, radius, center) {
         translate([0, -40, radius])
         cube(
             size=[
-                size[0],
+                size.x,
                 40,
-                size[1]-(radius*2)
+                size.y-(radius*2)
             ]
         );
 
         // Side face
-        translate([size[0],0,0])
+        translate([size.x,0,0])
         mirror([1,0,0])
         rotate([0,0,-45])
         translate([0, -40, radius])
         cube(
             size=[
-                size[0],
+                size.x,
                 40,
-                size[1]-(radius*2)
+                size.y-(radius*2)
             ]
         );
 
         // Filler
         translate([radius,-30,0])
         cube([
-            size[0]-(radius*2),
+            size.x-(radius*2),
             30,
-            size[1]
+            size.y
         ]);
 
         // Filler
         translate([0,-30,radius])
         cube([
-            size[0],
+            size.x,
             30,
-            size[1]-(radius*2)
+            size.y-(radius*2)
         ]);
 
         // Corners
-        for(x=[radius, size[0]-radius]) {
-            for(z=[radius, size[1]-radius]) {
+        for(x=[radius, size.x-radius]) {
+            for(z=[radius, size.y-radius]) {
                 translate([x,0,z])
                 rotate([90,0,0])
                 cylinder(
-                    h=size[1]+30,
+                    h=size.y+30,
                     r1=radius,
-                    r2=radius+size[1]+30
+                    r2=radius+size.y+30
                 );
             }
         }
@@ -362,22 +362,22 @@ module mounting_tab(tab_width, tab_thickness, tab_hole_diameter) {
 
 
 module vent_hole(size, radius, angle) {
-    corrected_radius = min(size[0]/2, size[1]/2, radius);
-    max_dimension = max(size[0], size[1], size[2]);
+    corrected_radius = min(size.x/2, size.y/2, radius);
+    max_dimension = max(size.x, size.y, size.z);
 
     intersection() {        
         cube(size = max_dimension, center=true);
 
         rotate([0,-angle,0])
-        linear_extrude(height=size[2]*2, center=true)
+        linear_extrude(height=size.z*2, center=true)
         rotate([0,angle,0])
         union() {
-            square([size[0] - (corrected_radius * 2), size[1]], center=true);
-            square([size[0], size[1] - (corrected_radius * 2)], center=true);
+            square([size.x - (corrected_radius * 2), size.y], center=true);
+            square([size.x, size.y - (corrected_radius * 2)], center=true);
 
             copy_mirror([0,1,0])
             copy_mirror([1,0,0])
-            translate([(size[0]/2) - corrected_radius, (size[1]/2) - corrected_radius,0])
+            translate([(size.x/2) - corrected_radius, (size.y/2) - corrected_radius,0])
             circle(corrected_radius);
         }
     }
