@@ -361,6 +361,28 @@ module mounting_tab(tab_width, tab_thickness, tab_hole_diameter) {
 }
 
 
+module vent_hole(size, radius, angle) {
+    corrected_radius = min(size[0]/2, size[1]/2, radius);
+    max_dimension = max(size[0], size[1], size[2]);
+
+    intersection() {        
+        cube(size = max_dimension, center=true);
+
+        rotate([0,-angle,0])
+        linear_extrude(height=size[2]*2, center=true)
+        rotate([0,angle,0])
+        union() {
+            square([size[0] - (corrected_radius * 2), size[1]], center=true);
+            square([size[0], size[1] - (corrected_radius * 2)], center=true);
+
+            copy_mirror([0,1,0])
+            copy_mirror([1,0,0])
+            translate([(size[0]/2) - corrected_radius, (size[1]/2) - corrected_radius,0])
+            circle(corrected_radius);
+        }
+    }
+}
+
 module copy_mirror(mirror) {
     children();
     

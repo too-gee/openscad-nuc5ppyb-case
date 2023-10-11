@@ -303,17 +303,28 @@ if(which_part == "case") {
 }
 
 if(which_part == "lid") {
-    vent_hole_thickness = 3;
-    vent_hole_rotation = 60;
-    vent_hole_spacing = 2;
+    vent_hole_thickness = 5;
+    vent_hole_rotation = 45;
+    min_vent_hole_spacing = 3;
+    
+    lid_thickness = 3;
 
-    max_vent_hole_area = 90;
+    vent_area_offset = wall_thickness + lid_thickness;
+    vent_area_width = interior_width - (vent_area_offset * 2);
+    
+    echo(vent_area_width);
 
-    vent_hole_rotated_thickness = ((vent_hole_thickness * cos(90 - vent_hole_rotation)) * tan(vent_hole_rotation)) + (vent_hole_thickness * sin(90 - vent_hole_rotation));
-    vent_holes_per_row = floor((90 + vent_hole_spacing) / (vent_hole_rotated_thickness + vent_hole_spacing));
-    actual_vent_hole_spacing = (max_vent_hole_area - (vent_holes_per_row * vent_hole_rotated_thickness)) / (vent_holes_per_row - 1);
+    vent_holes_per_row = floor((vent_area_width + min_vent_hole_spacing) / (vent_hole_thickness + min_vent_hole_spacing));
+    vent_hole_spacing = (vent_area_width - (vent_holes_per_row * vent_hole_thickness)) / (vent_holes_per_row - 1);
 
-    coords = [9 + (vent_hole_rotated_thickness/2):vent_hole_rotated_thickness+actual_vent_hole_spacing:99];
+    coords = [
+        vent_area_offset + (vent_hole_thickness / 2)
+        :
+        vent_hole_thickness + vent_hole_spacing
+        :
+        vent_area_width + vent_area_offset
+    ];
+
     coords_list = [for(i=coords) i];
 
     render(convexity = 2)
@@ -341,13 +352,13 @@ if(which_part == "lid") {
                     size=[
                         interior_width,
                         interior_width,
-                        wall_thickness + 3
+                        wall_thickness + lid_thickness
                     ],
                     radius=interior_radius
                 );
 
                 // Inside Part Bezel
-                translate([0,0,wall_thickness + 3])
+                translate([0,0,wall_thickness + lid_thickness])
                 roundamid(
                     size=[interior_width, interior_width],
                     height=2,
@@ -356,13 +367,11 @@ if(which_part == "lid") {
             }
 
             for(x=coords) {
-                direction = ((x - 9 - (vent_hole_rotated_thickness/2))/(vent_hole_rotated_thickness+actual_vent_hole_spacing)) % 2 == 0 ? 0 : 1;
-
                 for(y=coords) {
+                direction = round((y - coords[0])/coords[1]) % 2;
                     translate([x,y,0])
-                    mirror([0,direction,0])
-                    rotate([vent_hole_rotation,0,0])
-                    rounded_cube(size=[vent_hole_rotated_thickness,vent_hole_thickness,40], radius=1.5, center=true);
+                    mirror([direction,0,0])
+                    vent_hole([vent_hole_thickness,vent_hole_thickness,40+wall_thickness], radius=.5, angle=vent_hole_rotation);
                 }
             }
 
