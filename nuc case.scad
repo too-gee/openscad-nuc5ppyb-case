@@ -69,12 +69,12 @@ if(which_part == "case") {
             tab_hole_diameter = 5;
 
             translate([
-                interior_width / 2,
+                (interior_width - addl_width) / 2,
                 interior_width / 2,
                 (hdd_tab_thickness / 2)- wall_thickness
             ])
             copy_mirror([1, 0, 0])
-            translate([-(interior_width / 2) - (tab_width / 2) - wall_thickness, 0, 0])
+            translate([-((interior_width + addl_width) / 2) - (tab_width / 2) - wall_thickness, 0, 0])
             mounting_tab(
                 tab_width = tab_width,
                 tab_thickness = hdd_tab_thickness,
@@ -86,13 +86,13 @@ if(which_part == "case") {
             union() {
                 // Outside Surface
                 translate([
-                    -wall_thickness,
+                    -wall_thickness - addl_width,
                     -wall_thickness,
                     -wall_thickness
                 ])
                 rounded_cube(
                     size = [
-                        interior_width + (wall_thickness * 2),
+                        interior_width + (wall_thickness * 2) + addl_width,
                         interior_width + (wall_thickness * 2),
                         interior_height + wall_thickness
                     ],
@@ -101,9 +101,10 @@ if(which_part == "case") {
             }
 
             // Interior Cavity
+            translate([-addl_width, 0, 0])
             rounded_cube(
                 size = [
-                    interior_width,
+                    interior_width + addl_width,
                     interior_width,
                     interior_height + 10
                 ],
@@ -184,7 +185,7 @@ if(which_part == "case") {
 
             if(cable_hole == true) {
                 // Side Cable Inset
-                translate([-wall_thickness, 30, 30])
+                translate([-wall_thickness - addl_width, 30, 30])
                 rotate([90, 0, 90])
                 roundamid(
                     size = [28 + (wall_thickness * 2) + 3, 9 + (wall_thickness * 2) + 3],
@@ -194,7 +195,7 @@ if(which_part == "case") {
                 );
 
                 // Side Cable Hole
-                translate([0, 30, 30])
+                translate([-addl_width, 30, 30])
                 rotate([90, 0, 90])
                 rounded_cube(size=[28, 9, 30], center = true, radius = 1);
             }
@@ -238,9 +239,10 @@ if(which_part == "case") {
         
         // Standoffs
         intersection() {
+            translate([-addl_width, 0, 0])
             rounded_cube(
                 size=[
-                    interior_width,
+                    interior_width + addl_width,
                     interior_width,
                     interior_height + 10
                 ],
@@ -263,13 +265,13 @@ if(which_part == "case") {
                             
                             // Standoff filler
                             translate([
-                                direction_x * 4 * standoff_radius,
+                                (direction_x * 4 * standoff_radius) + (addl_width * direction_x * 0.5),
                                 direction_y * 5 * standoff_radius,
                                 0
                             ])
                             cube(
                                 size = [
-                                    10 * standoff_radius,
+                                    (10 * standoff_radius) + addl_width,
                                     10 * standoff_radius,
                                     standoff_height
                                 ],
@@ -278,13 +280,13 @@ if(which_part == "case") {
                             
                             // Standoff filler
                             translate([
-                                direction_x * 5 * standoff_radius,
+                                (direction_x * 5 * standoff_radius) + (addl_width * direction_x * 0.5),
                                 direction_y * 4 * standoff_radius,
                                 0
                             ])
                             cube(
                                 size = [
-                                    10 * standoff_radius,
+                                    (10 * standoff_radius) + addl_width,
                                     10 * standoff_radius,
                                     standoff_height
                                 ],
