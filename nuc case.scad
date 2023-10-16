@@ -12,6 +12,9 @@ which_part = "case"; // ["lid", "case"]
 // How thick the walls of the case are (except around ports)
 wall_thickness = 3; // [2:20]
 
+// How much additional width should the case have? (This will make the case non-square)
+addl_width = 0; // [0:30]
+
 
 /* [Lid] */
 
