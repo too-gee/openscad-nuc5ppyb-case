@@ -74,7 +74,7 @@ if(which_part == "case") {
             translate([-(interior_width / 2) - (tab_width / 2) - wall_thickness, 0, 0])
             mounting_tab(
                 tab_width = tab_width,
-                hdd_tab_thickness = hdd_tab_thickness,
+                tab_thickness = hdd_tab_thickness,
                 tab_hole_diameter = tab_hole_diameter
             );
         }
