@@ -125,15 +125,15 @@ if(which_part == "case") {
             usb_port();
 
             // Front Audio
-            translate([39,0, 20.29])
+            translate([39, -14, 20.29])
             round_port(diameter = 6);
 
             // Front IR
-            translate([23, 0, 20.4])
+            translate([23, -14, 20.4])
             round_port(diameter = 8);
 
             // Front Power Button
-            translate([90.5, 0, 25])
+            translate([90.5, -14, 25])
             round_port(diameter = power_button_diameter);
 
             // Rear IO Inset
@@ -177,7 +177,7 @@ if(which_part == "case") {
             );
 
             // Side SD
-            translate([110, 26.8, 19])
+            translate([122, 26.8, 19])
             rotate([90, 0, 90])
             rounded_cube(size=[27, 5, 30], center = true, radius = 1);
 

@@ -80,6 +80,7 @@ module ethernet_port() {
 
 module hdmi_port() {
     rotate([90, 180, 0])
+    translate([0,0,-15])
     linear_extrude(30)
     polygon(points = [
         [5.306, 3.381],
