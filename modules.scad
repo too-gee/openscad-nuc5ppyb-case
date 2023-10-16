@@ -366,10 +366,12 @@ module vent_hole(size, radius, angle) {
     corrected_radius = min(size.x / 2, size.y / 2, radius);
     max_dimension = max(size.x, size.y, size.z);
 
-    intersection() {        
+    intersection() {
+        translate([0, 0, size.z / 2])
         cube(size = max_dimension, center = true);
 
         rotate([0, -angle, 0])
+        translate([0, 0, size.z / 2])
         linear_extrude(height = size.z * 2, center = true)
         rotate([0, angle, 0])
         union() {
