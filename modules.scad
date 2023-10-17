@@ -360,6 +360,18 @@ module mounting_tab(tab_width, tab_thickness, tab_hole_diameter) {
     }
 }
 
+module mounting_tab_shield(hdd_tab_thickness) {
+    rotate([90, 0, 0])
+    linear_extrude(hdd_tab_thickness, center=true)
+    polygon([
+        [-15.250, -6.500],
+        [-15.250, 13.500],
+        [ 14.750, 13.500],
+        [ 14.750,  0.500],
+        [  7.000,  0.500],
+        [  0.000, -6.500]
+    ]);
+}
 
 module vent_hole(size, radius, angle) {
     corrected_radius = min(size.x / 2, size.y / 2, radius);

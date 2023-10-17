@@ -458,16 +458,8 @@ if(which_part == "lid") {
                     (interior_width + hdd_width) / 2,
                     wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                 ])
-                rotate([90,0,90])
-                linear_extrude(hdd_tab_thickness, center=true)
-                polygon([
-                    [-15.250, -6.500],
-                    [-15.250, 13.500],
-                    [ 14.750, 13.500],
-                    [ 14.750,  0.500],
-                    [  7.000,  0.500],
-                    [  0.000, -6.500]
-                ]);
+                rotate([0,0,90])
+                mounting_tab_shield(hdd_tab_thickness=hdd_tab_thickness);
 
                 // Remove extra holes from standoffs
                 translate([
@@ -475,16 +467,8 @@ if(which_part == "lid") {
                     (interior_width - hdd_width) / 2,
                     wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                 ])
-                rotate([90,0,-90])
-                linear_extrude(hdd_tab_thickness, center=true)
-                polygon([
-                    [-15.250, -6.500],
-                    [-15.250, 13.500],
-                    [ 14.750, 13.500],
-                    [ 14.750,  0.500],
-                    [  7.000,  0.500],
-                    [  0.000, -6.500]
-                ]);
+                rotate([0,0,-90])
+                mounting_tab_shield(hdd_tab_thickness=hdd_tab_thickness);
             }
         }
     }
