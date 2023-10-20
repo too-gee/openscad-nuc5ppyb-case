@@ -71,41 +71,47 @@ min_vent_hole_spacing = 3;
 lid_thickness = 3;
 lid_bevel_thickness = 2;
 
-vent_area_offset = wall_thickness + lid_thickness;
-vent_area_width = interior_width - (vent_area_offset * 2);
+vent_area_offset_x = min(wall_thickness, 10) + lid_thickness;
+vent_area_offset_y = wall_thickness + lid_thickness;
+vent_area_width_x = interior_width + addl_width - (vent_area_offset_x * 2);
+vent_area_width_y = interior_width - (vent_area_offset_y * 2);
 
-vent_holes_per_col = floor((vent_area_width + min_vent_hole_spacing) / (vent_hole_thickness + min_vent_hole_spacing));
-vent_hole_col_spacing = (vent_area_width - (vent_holes_per_col * vent_hole_thickness)) / (vent_holes_per_col - 1);
 
-vent_holes_per_row = floor((vent_area_width + addl_width + min_vent_hole_spacing) / (vent_hole_thickness + min_vent_hole_spacing));
-vent_hole_row_spacing = ((vent_area_width + addl_width) - (vent_holes_per_row * vent_hole_thickness)) / (vent_holes_per_row - 1);
+vent_hole_x_spacing = actual_item_spacing(
+    item_size = vent_hole_thickness,
+    min_item_spacing = min_vent_hole_spacing,
+    desired_length = vent_area_width_x
+);
+
+vent_hole_y_spacing = actual_item_spacing(
+    item_size = vent_hole_thickness,
+    min_item_spacing = min_vent_hole_spacing,
+    desired_length = vent_area_width_y
+);
 
 hdd_tab_coords_x = [
-    vent_area_offset + (vent_hole_thickness / 2)
+    vent_area_offset_x + (vent_hole_thickness / 2)
     :
-    vent_hole_thickness + vent_hole_row_spacing
+    vent_hole_thickness + vent_hole_x_spacing
     :
-    vent_area_width + addl_width + vent_area_offset
+    vent_area_width_x + vent_area_offset_x
 ];
 
 hdd_tab_coords_list_x = [for(i=hdd_tab_coords_x) i];
 
 hdd_tab_coords_y = [
-    vent_area_offset + (vent_hole_thickness / 2)
+    vent_area_offset_y + (vent_hole_thickness / 2)
     :
-    vent_hole_thickness + vent_hole_col_spacing
+    vent_hole_thickness + vent_hole_y_spacing
     :
-    vent_area_width + vent_area_offset
+    vent_area_width_y + vent_area_offset_y
 ];
 
 hdd_tab_coords_list_y = [for(i=hdd_tab_coords_x) i];
-
     
-hdd_tab_thickness = vent_hole_thickness + (2 * vent_hole_row_spacing);
+hdd_tab_thickness = vent_hole_thickness + (2 * vent_hole_x_spacing);
 hdd_tab_height = 17;
 hdd_width = 70.5;
-
-
 
 if(which_part == "case") {
     render(convexity = 2)
@@ -423,7 +429,7 @@ if(which_part == "lid") {
                 ])
                 cube(
                     size = [
-                        (vent_hole_row_spacing * 3) + (vent_hole_thickness * 2),
+                        (vent_hole_x_spacing * 3) + (vent_hole_thickness * 2),
                         2.5,
                         lid_bevel_thickness + lid_thickness
                     ],
@@ -437,7 +443,7 @@ if(which_part == "lid") {
                 ])
                 cube(
                     size = [
-                        (vent_hole_row_spacing * 3) + (vent_hole_thickness * 2),
+                        (vent_hole_x_spacing * 3) + (vent_hole_thickness * 2),
                         2.5,
                         lid_bevel_thickness + lid_thickness
                     ],
@@ -449,7 +455,7 @@ if(which_part == "lid") {
                     intersection() {
                         union () {
                             translate([
-                                hdd_tab_coords_list_x[len(hdd_tab_coords_list_x) - 1],
+                                max([ for (i = hdd_tab_coords_list_x) if (i < 100) i ]),
                                 (interior_width + hdd_width) / 2,
                                 wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                             ])
@@ -457,7 +463,7 @@ if(which_part == "lid") {
                             hdd_hook(thickness = hdd_tab_thickness);
 
                             translate([
-                                hdd_tab_coords_list_x[len(hdd_tab_coords_list_x) - 1],
+                                max([ for (i = hdd_tab_coords_list_x) if (i < 100) i ]),
                                 (interior_width - hdd_width) / 2,
                                 wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                             ])
@@ -508,7 +514,7 @@ if(which_part == "lid") {
             ])
             rotate([0, 90, 0])
             cylinder(
-                h = (vent_hole_row_spacing * 3) + (vent_hole_thickness * 2),
+                h = (vent_hole_x_spacing * 3) + (vent_hole_thickness * 2),
                 d = lid_thickness,
                 center = true
             );
@@ -520,7 +526,7 @@ if(which_part == "lid") {
             ])
             rotate([0, 90, 0])
             cylinder(
-                h = (vent_hole_row_spacing * 3) + (vent_hole_thickness * 2),
+                h = (vent_hole_x_spacing * 3) + (vent_hole_thickness * 2),
                 d = lid_thickness,
                 center = true
             );
@@ -550,7 +556,7 @@ if(which_part == "lid") {
 
                 // Remove extra holes from standoffs
                 translate([
-                    hdd_tab_coords_list_x[len(hdd_tab_coords_list_x) - 1],
+                    max([ for (i = hdd_tab_coords_list_x) if (i < 100) i ]),
                     (interior_width + hdd_width) / 2,
                     wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                 ])

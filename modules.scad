@@ -403,3 +403,6 @@ module copy_mirror(mirror) {
     mirror(mirror)
     children();
 }
+
+function items_per_length(item_size, min_item_spacing, desired_length) = floor((desired_length + min_item_spacing) / (item_size + min_item_spacing));
+function actual_item_spacing(item_size, min_item_spacing, desired_length) = (desired_length - (items_per_length(item_size, min_item_spacing, desired_length) * item_size)) / (items_per_length(item_size, min_item_spacing, desired_length) - 1);
