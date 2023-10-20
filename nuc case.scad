@@ -50,7 +50,7 @@ inset_wall_thickness = 1.5;
 
 standoff_radius = 3;
 standoff_hole_size = 1;
-standoff_height=15.2;
+standoff_height = 15.2;
 
 fan_guide_width = 1.5;
 fan_guide_left = 23;
@@ -97,7 +97,7 @@ hdd_tab_coords_x = [
     vent_area_width_x + vent_area_offset_x
 ];
 
-hdd_tab_coords_list_x = [for(i=hdd_tab_coords_x) i];
+hdd_tab_coords_list_x = [for(i = hdd_tab_coords_x) i];
 
 hdd_tab_coords_y = [
     vent_area_offset_y + (vent_hole_thickness / 2)
@@ -107,7 +107,7 @@ hdd_tab_coords_y = [
     vent_area_width_y + vent_area_offset_y
 ];
 
-hdd_tab_coords_list_y = [for(i=hdd_tab_coords_x) i];
+hdd_tab_coords_list_y = [for(i = hdd_tab_coords_x) i];
     
 hdd_tab_thickness = vent_hole_thickness + (2 * vent_hole_x_spacing);
 hdd_tab_height = 17;
@@ -157,7 +157,7 @@ if(which_part == "case") {
                     interior_width,
                     interior_height + 10
                 ],
-                radius=interior_radius
+                radius = interior_radius
             );
 
             // Front IO Inset
@@ -229,7 +229,7 @@ if(which_part == "case") {
             // Side SD
             translate([122, 26.8, 19])
             rotate([90, 0, 90])
-            rounded_cube(size=[27, 5, 30], center = true, radius = 1);
+            rounded_cube(size = [27, 5, 30], center = true, radius = 1);
 
 
             if(cable_hole == true) {
@@ -246,7 +246,7 @@ if(which_part == "case") {
                 // Side Cable Hole
                 translate([-addl_width, 30, 30])
                 rotate([90, 0, 90])
-                rounded_cube(size=[28, 9, 30], center = true, radius = 1);
+                rounded_cube(size = [28, 9, 30], center = true, radius = 1);
             }
 
             // Fan Exhausts
@@ -309,14 +309,14 @@ if(which_part == "case") {
                 fan_guide_width,
                 2.5
             ],
-            center=true
+            center = true
         );
         
         // Standoffs
         intersection() {
             translate([-addl_width, 0, 0])
             rounded_cube(
-                size=[
+                size = [
                     interior_width + addl_width,
                     interior_width,
                     interior_height + 10
@@ -335,7 +335,7 @@ if(which_part == "case") {
                             cylinder(
                                 h = standoff_height,
                                 r = standoff_radius,
-                                center=true
+                                center = true
                             );
                             
                             // Standoff filler
@@ -371,9 +371,9 @@ if(which_part == "case") {
 
                         // Standoff screw hole
                         cylinder(
-                            h=standoff_height + 1,
-                            r=standoff_hole_size,
-                            center=true
+                            h = standoff_height + 1,
+                            r = standoff_hole_size,
+                            center = true
                         );
                     }
                 }
@@ -561,7 +561,7 @@ if(which_part == "lid") {
                     wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                 ])
                 rotate([0, 0, 90])
-                mounting_tab_shield(hdd_tab_thickness=hdd_tab_thickness);
+                mounting_tab_shield(hdd_tab_thickness = hdd_tab_thickness);
 
                 // Remove extra holes from standoffs
                 translate([
@@ -570,7 +570,7 @@ if(which_part == "lid") {
                     wall_thickness + lid_bevel_thickness + lid_thickness + (hdd_tab_height / 2)
                 ])
                 rotate([0, 0, -90])
-                mounting_tab_shield(hdd_tab_thickness=hdd_tab_thickness);
+                mounting_tab_shield(hdd_tab_thickness = hdd_tab_thickness);
             }
         }
     }
